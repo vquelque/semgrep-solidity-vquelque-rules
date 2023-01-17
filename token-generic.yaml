@@ -1,0 +1,15 @@
+rules:  
+  - id: token-safe-transfer
+    message: >- 
+        ERC20 or ERC721 token uses 'transfer' instead of 'safeTransfer'. In case of **ERC20**, this can lead to tokens not being transferred corectly if the return value is not handled propertly. In case of **ERC721**, this can lead to tokens lost forever. In any case, using safeTransfer is recommended.
+    metadata:
+      references:
+        - 'https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-allowance-address-address-'
+        - 'https://docs.openzeppelin.com/contracts/4.x/api/token/erc721#IERC721-transferFrom-address-address-uint256-'
+    severity: WARNING
+    languages:
+      - solidity
+    patterns:
+     - pattern-either: 
+       - pattern: $INTERFACE.transferFrom(...);
+       - pattern: $INTERFACE.transfer(...);

@@ -1,0 +1,24 @@
+rules:
+  - id: erc20-safe-transfers
+    message: ERC20 do not use 'safe' function call wrapper. Consider using SafeERC20 library.
+    severity: WARNING
+    languages:
+      - solidity
+    patterns:
+      - pattern-either:
+        - pattern: $INTERFACE.increaseAllowance(...);
+        - pattern: $INTERFACE.decreaseAllowance(...);
+        - pattern: $INTERFACE.permit(...);
+
+  - id: erc20-allowance
+    message: ERC20 uses 'approve' pattern instead of 'safeIncreaseAllowance' and 'safeDecreaseAllowance'.
+    metadata:
+      references:
+        - 'https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20-allowance-address-address-'
+    severity: WARNING
+    languages:
+      - solidity
+    patterns:
+     - pattern-either: 
+       - pattern: $INTERFACE.approve(...);
+       - pattern: $INTERFACE.safeApprove(...);

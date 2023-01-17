@@ -1,0 +1,16 @@
+rules:
+  - id: transfer-arbitrary-sender
+    message: public or external function calls allows token transfer with arbitrary 'from'
+    patterns:
+      - pattern-either:
+          - pattern-inside: function $F(...) external {...}
+          - pattern-inside: function $F(...) public {...}
+      - pattern-either: 
+        - pattern: $INTERFACE(...).transferFrom($FROM,...);
+        - pattern: $INTERFACE(...).safeTransferFrom($FROM,...);
+        - pattern: $INTERFACE(...).operatorSend($FROM,...);
+      - pattern-not-inside: ... require($FROM == ...); ... 
+    languages:
+      - solidity
+    severity: WARNING
+

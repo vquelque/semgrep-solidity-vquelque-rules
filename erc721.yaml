@@ -1,0 +1,13 @@
+rules:
+  - id: erc721-mint
+    message: ERC721 uses 'mint' instead of 'safeMint'.
+    severity: WARNING
+    metadata:
+      references:
+        - 'https://docs.openzeppelin.com/contracts/4.x/api/token/erc721#ERC721-_mint-address-uint256-'
+    languages:
+      - solidity
+    patterns:
+      - pattern-either:
+        - pattern: $INTERFACE.mint(...);
+               
