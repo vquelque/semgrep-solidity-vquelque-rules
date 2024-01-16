@@ -1,0 +1,8 @@
+rules:
+- id: check-reentrancy-guard
+  severity: WARNING
+  languages: [solidity]
+  message: This pattern should always be reentrancy protected (ERC-777)
+  patterns:
+    - pattern-either: 
+      - pattern: $X.balanceOf(address(this)); ... $X.balanceOf(address(this));

@@ -22,3 +22,16 @@ rules:
      - pattern-either: 
        - pattern: $INTERFACE.approve(...);
        - pattern: $INTERFACE.safeApprove(...);
+
+  - id: erc20-safePermit
+    message: ERC20 use permit pattern. Make sure that the transaction cannot be frontrun and parameters changed by an attacker. Make sure to use "safePermit()".
+    metadata:
+      references:
+        - 'https://docs.openzeppelin.com/contracts/4.x/api/token/erc20#IERC20Permit'
+    severity: WARNING
+    languages:
+      - solidity
+    patterns:
+     - pattern-either: 
+       - pattern: $INTERFACE.permit(...);
+       - pattern: $INTERFACE.safePermit(...)
