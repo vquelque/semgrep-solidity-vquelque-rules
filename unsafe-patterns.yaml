@@ -1,0 +1,27 @@
+rules:
+  # - id: low-level-call-user-controlled
+  #   languages:
+  #     - solidity
+  #   message: low level call with user-controlled parameters. Check that the parameters cannot be manipulated!
+  #   mode: taint
+  #   pattern-sources:
+  #     - patterns:
+  #       - pattern: function $F(..., $PARAM $TYPE, ...) external {...}
+  #       - pattern: function $F(..., $PARAM $TYPE, ...) public {...}
+  #       - focus-metavariable: $PARAM
+  #   pattern-sinks:
+  #     - patterns:
+  #       - pattern: $X.call(..., $PARAM, ...)
+  #       - focus-metavariable: $PARAM
+  #   severity: WARNING
+  - id: low-level-call-user-controlled
+    languages:
+      - solidity
+    message: low level call with user-controlled parameters. Check that the parameters cannot be manipulated!
+    patterns:
+      - patterns: 
+        - pattern: $X.call(..., $PARAM, ...)
+      - pattern-inside: function $F(..., $PARAM $TYPE, ...) {...}
+    severity: WARNING
+
+
